@@ -7,7 +7,7 @@ if (!isset($_SESSION["user_name"])) {
     exit;
 }
 
-$dsn = 'mysql:dbname=login_test;host=127.0.0.1';
+$dsn = 'mysql:dbname=chat;host=127.0.0.1';
 $user = 'user';
 $password = 'user';
 
