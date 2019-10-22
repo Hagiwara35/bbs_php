@@ -52,14 +52,13 @@ $sql = 'select * from chat_table, user where chat_table.user_id = user.id order 
     }
 
     } catch (PDOException $e) {
-        print('Error:' . $e->getMessage());
-        die();
+        print('Error:DB接続エラー</br><a href="../../">TOPに戻る</a>');
+        exit;
     } finally {
         $dbh = null;
     }
     ?>
 </div>
-
 <script type="text/javascript" src="../js/comment.js"></script>
 </body>
 </html>
