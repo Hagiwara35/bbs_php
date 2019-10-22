@@ -1,5 +1,5 @@
 // websoketオープン
-var pas = "localhost";
+var pas = "192.168.0.7";
 
 var conn = new WebSocket('ws://' + pas + ':8080');
 var name;     // ユーザーネーム

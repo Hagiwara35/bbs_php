@@ -32,13 +32,13 @@ if (isset($_POST['login'])) {
             exit;
         }
     } catch (PDOException $e) {
-        print('Error:' . $e->getMessage());
-        die();
+        $error_message = 'Error:DB接続エラー';
     } finally {
         $dbh = null;
+        if(!$error_message){
+            $error_message = "<br>※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
+        }
     }
-
-    $error_message = "<br>※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
 }
 ?>
 
