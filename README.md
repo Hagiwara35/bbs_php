@@ -1,9 +1,9 @@
 # bbs_php
 
 必要なもの
-*  php
-* composer
-* DB
+* php
+* [composer](https://getcomposer.org/)
+* [DB](https://github.com/Hagiwara35/bbs_php/wiki/DB%E3%81%AE%E6%A7%8B%E6%88%90)
 
 実行
 1. コマンドプロンプトでprojectディレクトリまで移動
