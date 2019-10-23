@@ -53,6 +53,7 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
+    <h1>ログイン画面</h1>
     <div>
         <h1>
             <?php
