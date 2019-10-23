@@ -44,36 +44,47 @@ if (isset($_POST['login'])) {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ログイン画面</title>
 </head>
+
 <body>
-<div>
-    <h1>
+    <div>
+        <h1>
+            <?php
+            if (isset($_SESSION["user_name"])) {
+                echo $_SESSION["user_name"] . "でログイン中...";
+            }
+            ?>
+        </h1>
+    </div>
+
+    <div>
+        <form action="index.php" method="POST">
+            <p>ログインID：<input type="text" name="user_name"></p>
+            <p>パスワード：<input type="password" name="password"></p>
+            <input type="submit" name="login" value="ログイン" style="float: left; margin: 0 10px 0 0">
+        </form>
+        <a href="public/html/user-registration.php">
+            <button>ユーザを新規作成</button>
+        </a>
+    </div>
+
+    <div>
         <?php
         if (isset($_SESSION["user_name"])) {
-            echo $_SESSION["user_name"] . "でログイン中...";
+            echo "<a href=\"public/html/logout.php\"><button>ログアウト</button></a>";
+        }
+
+        if ($error_message) {
+            echo $error_message;
         }
         ?>
-    </h1>
-</div>
-
-<form action="index.php" method="POST">
-    <p>ログインID：<input type="text" name="user_name"></p>
-    <p>パスワード：<input type="password" name="password"></p>
-    <input type="submit" name="login" value="ログイン" style="float: left; margin: 0 10px 0 0">
-</form>
-<?php
-if (isset($_SESSION["user_name"])) {
-    echo "<a href=\"public/html/logout.php\"><button>ログアウト</button></a>";
-}
-
-if ($error_message) {
-    echo $error_message;
-}
-?>
+    </div>
 </body>
+
 </html>
