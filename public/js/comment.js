@@ -1,7 +1,14 @@
 // websoketオープン
-var pas = "192.168.0.7";
+var pas = "localhost";
 
 var conn = new WebSocket('ws://' + pas + ':8080');
+conn.onerror = function(){
+    alert("サーバに接続できませんでした...");
+    location.href = '../../index.php';
+}
+
+var test = document.getElementById("body");
+
 var name;     // ユーザーネーム
 var user_json = {
     "id": undefined,
@@ -15,7 +22,7 @@ conn.onopen = function (e) {
 
     //クッキー情報の読み込み
     var cookie = document.cookie.split(';');
-    cookie.forEach(function(item) {
+    cookie.forEach(function (item) {
         cookie_obj[item.split("=")[0].replace(/\s+/g, "")] = item.split("=")[1];
     });
 

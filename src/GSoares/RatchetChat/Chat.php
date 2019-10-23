@@ -36,7 +36,7 @@ class Chat implements MessageComponentInterface
         $user_json['name'] = htmlspecialchars($user_json['name'], ENT_QUOTES, "UTF-8");
         $user_json['message'] = htmlspecialchars($user_json['message'], ENT_QUOTES, "UTF-8");
 
-        $dsn = 'mysql:dbname=login_test;host=127.0.0.1';
+        $dsn = 'mysql:dbname=chat;host=127.0.0.1';
         $user = 'user';
         $password = 'user';
         try {
