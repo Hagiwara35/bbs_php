@@ -1,7 +1,7 @@
 {
     "autoload": {
-        "psr-0": {
-            "GSoares\\RatchetChat": "src"
+        "psr-4": {
+            "src\\": "src/"
         }
     },
     "require": {

@@ -1,4 +1,8 @@
 <?php
+require_once '../../vendor/autoload.php';
+
+use src\DB\DBAccess;
+
 session_start();
 
 if (!isset($_SESSION["user_name"])) {
@@ -7,14 +11,11 @@ if (!isset($_SESSION["user_name"])) {
     exit;
 }
 
-$dsn = 'mysql:dbname=chat;host=127.0.0.1';
-$user = 'user';
-$password = 'user';
-
 try {
-$dbh = new PDO($dsn, $user, $password);
-
-$sql = 'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id DESC';
+$sth = (new DBAccess())->getSQLExecution(
+        'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id DESC',
+        []
+);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -34,7 +35,7 @@ $sql = 'select * from chat_table, user where chat_table.user_id = user.id order 
 <!--コメント書き込み-->
 <div id="chat">
     <?php
-    foreach ($dbh->query($sql) as $item) {
+    foreach ($sth as $item) {
         if ($item['id'] == $_COOKIE['userid']) {
             echo '<div class="user">'
                 . '<span class="user_name">' . $item['user_name'] . '</span>'
