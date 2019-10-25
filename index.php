@@ -1,26 +1,22 @@
 <?php
+require_once "vendor/autoload.php";
+
+use src\DB\DBAccess;
+
 session_start();
 
 $error_message = '';
 $sth = null;
 
 if (isset($_POST['login'])) {
-    $dsn = 'mysql:dbname=chat;host=127.0.0.1';
-    $user = 'user';
-    $password = 'user';
-
     try {
-        $dbh = new PDO($dsn, $user, $password);
-
-        $sqlUsername = $_POST['user_name'];
-        $sqlPassword = hash('ripemd160', $_POST['password']);
-
-        $sql = 'select * from user where user_name = :user_name and password = :password';
-        $sth = $dbh->prepare($sql);
-        $sth->bindParam(':user_name', $sqlUsername);
-        $sth->bindParam(':password', $sqlPassword);
-
-        $sth->execute();
+        $sth = (new DBAccess())->getSQLExecution(
+                'select * from user where user_name = :user_name and password = :password',
+                [
+                        ':user_name' => $_POST['user_name'],
+                        ':password' => hash('ripemd160', $_POST['password'])
+                ]
+        );
 
         if ($sth->rowCount() == 1) {
             $sth = $sth->fetch(PDO::FETCH_ASSOC);
