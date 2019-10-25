@@ -17,6 +17,6 @@ if (!isset($_SESSION["user_name"])) {
     <title>login_test</title>
 </head>
 <body>
-    <h1>ログインできたよ！！</h1>
+    
 </body>
 </html>
