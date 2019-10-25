@@ -1,9 +1,7 @@
 <?php
 
-namespace GSoares\RatchetChat;
+namespace src\RatchetChat;
 
-use PDO;
-use PDOException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
