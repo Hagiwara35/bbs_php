@@ -4,6 +4,7 @@ namespace src\RatchetChat;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use src\DB\DBAccess;
 
 class Chat implements MessageComponentInterface
 {
@@ -33,19 +34,14 @@ class Chat implements MessageComponentInterface
 
         $user_json['name'] = htmlspecialchars($user_json['name'], ENT_QUOTES, "UTF-8");
         $user_json['message'] = htmlspecialchars($user_json['message'], ENT_QUOTES, "UTF-8");
-
-        $dsn = 'mysql:dbname=chat;host=127.0.0.1';
-        $user = 'user';
-        $password = 'user';
         try {
-            $dbh = new PDO($dsn, $user, $password);
-
-            $sql = 'INSERT INTO chat_table (id, user_id, comment) VALUES (NULL, :user_id, :user_comment);';
-            $sth = $dbh->prepare($sql);
-            $sth->bindParam(':user_id', $user_json['id']);
-            $sth->bindParam(':user_comment', $user_json['message']);
-
-            $sth->execute();
+            (new DBAccess())->getSQLExecution(
+                'INSERT INTO chat_table (id, user_id, comment) VALUES (NULL, :user_id, :user_comment)',
+                [
+                    ':user_id' => $user_json['id'],
+                    ':user_comment' => $user_json['message']
+                ]
+            );
         } catch (PDOException $e) {
             print('Error:' . $e->getMessage());
             die();
