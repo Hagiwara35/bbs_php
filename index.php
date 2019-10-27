@@ -23,6 +23,7 @@ if (isset($_POST['login'])) {
             setcookie('userid', $sth['id']);
             setcookie('name', $_POST['user_name']);
             $_SESSION["user_name"] = $_POST['user_name'];
+            $_SESSION["user_id"] = $sth['id'];
             $login_success_url = 'public/html/sled-list.php';
             header("Location: {$login_success_url}");
             exit;
