@@ -63,7 +63,12 @@
 
 /* テキストエリア、送信ボタン④ */
 #comment {
+    width: 100%;
     background-color:#eee;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
     border-right: 1px solid #ddd;
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
