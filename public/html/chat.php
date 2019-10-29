@@ -12,10 +12,7 @@ if (!isset($_SESSION["user_name"])) {
 }
 
 try {
-$sth = (new DBAccess())->getSQLExecution(
-        'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id ASC',
-        []
-);
+$dbh = new DBAccess();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -26,9 +23,31 @@ $sth = (new DBAccess())->getSQLExecution(
 </head>
 
 <body>
+<?php
+$sth = $dbh->getSQLExecution(
+    'select * from sled_table where id = :sled_id',
+    [
+        ':sled_id' => $_GET['sled_num']
+    ]
+);
+if ($sth->rowCount() == 1) {
+    $sth = $sth->fetch(PDO::FETCH_ASSOC);
+    echo "<h1>{$sth['sled_name']}</h1>";
+} else {
+    $error_url = 'sled-list.php';
+    header("Location: {$error_url}");
+    exit;
+}
+?>
+
 <!--コメント書き込み-->
 <div id="chat">
     <?php
+    $sth = $dbh->getSQLExecution(
+        'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id ASC',
+        []
+    );
+
     foreach ($sth as $item) {
         if ($item['id'] == $_COOKIE['userid']) {
             echo '<div class="user">'
