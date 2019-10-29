@@ -13,7 +13,7 @@ if (!isset($_SESSION["user_name"])) {
 
 try {
 $sth = (new DBAccess())->getSQLExecution(
-        'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id DESC',
+        'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id ASC',
         []
 );
 ?>
