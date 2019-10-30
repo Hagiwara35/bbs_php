@@ -55,7 +55,7 @@ if (isset($_POST['login'])) {
         <h1>
             <?php
             if (isset($_SESSION["user_name"])) {
-                echo $_SESSION["user_name"] . "でログイン中...";
+                echo "{$_SESSION["user_name"]}でログイン中...";
             }
             ?>
         </h1>

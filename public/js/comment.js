@@ -1,13 +1,11 @@
 // websoketオープン
-var pas = "localhost";
+var pas = "192.168.137.1";
 
 var conn = new WebSocket('ws://' + pas + ':8080');
 conn.onerror = function(){
     alert("サーバに接続できませんでした...");
     location.href = '../../index.php';
 }
-
-var test = document.getElementById("body");
 
 var name;     // ユーザーネーム
 var user_json = {
@@ -39,8 +37,6 @@ function sendMessage(e) {   //キーコードを取得
         return;
     }
 
-    var content = document.getElementById('chat').innerHTML;
-
     //JSONデータを作成
     user_json.message = document.getElementById('comment_area').value;
 
@@ -51,12 +47,11 @@ function sendMessage(e) {   //キーコードを取得
     conn.send(JSON.stringify(user_json));
 
     //初期化＋chat欄に書き込み
-    document.getElementById('chat').innerHTML = '<div class=\"user\">'
+    document.getElementById('chat').innerHTML += '<div class=\"user\">'
         + '<span class=\"user_name\">' + user_json.name + '</span>'
         + '<p>' + user_json.message + '</p>'
         + '</div>'
-        + '<div class=\"bms_clear\"></div>'
-        + content;
+        + '<div class=\"bms_clear\"></div>';
 
     document.getElementById('comment_area').value = '';
 };
@@ -65,15 +60,12 @@ function sendMessage(e) {   //キーコードを取得
 conn.onmessage = function (e) {
     console.log(e.data);
 
-    var content = document.getElementById('chat').innerHTML;
-
     e = JSON.parse(e.data);
 
     //初期化＋chat欄に書き込み
-    document.getElementById('chat').innerHTML = '<div class=\"client\">'
+    document.getElementById('chat').innerHTML += '<div class=\"client\">'
         + '<span class=\"client_name\">' + e.name + '</span>'
         + '<p>' + e.message + '</p>'
         + '</div>'
-        + '<div class=\"bms_clear\"></div>'
-        + content;
+        + '<div class=\"bms_clear\"></div>';
 };
