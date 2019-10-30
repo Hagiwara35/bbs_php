@@ -44,8 +44,10 @@ if ($sth->rowCount() == 1) {
 <div id="chat">
     <?php
     $sth = $dbh->getSQLExecution(
-        'select * from chat_table, user where chat_table.user_id = user.id order by chat_table.id ASC',
-        []
+        'select * from chat_table, user, sled_table where chat_table.user_id = user.id and chat_table.sled_id = sled_table.id and sled_table.id = :sled_id order by chat_table.id ASC',
+        [
+                ':sled_id' => $_GET['sled_num']
+        ]
     );
 
     foreach ($sth as $item) {
