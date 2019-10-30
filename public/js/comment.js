@@ -1,13 +1,13 @@
 // websoketオープン
 var pas = "192.168.137.1";
 
-var conn = new WebSocket('ws://' + pas + ':8080');
+var getquery = GetQueryString();
+
+var conn = new WebSocket('ws://' + pas + ':8080?sled_id=' + getquery['sled_num']);
 conn.onerror = function(){
     alert("サーバに接続できませんでした...");
     location.href = '../../index.php';
 }
-
-var getquery = GetQueryString();
 
 var user_json = {
     "id": undefined,

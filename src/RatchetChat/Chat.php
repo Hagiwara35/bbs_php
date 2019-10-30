@@ -36,10 +36,11 @@ class Chat implements MessageComponentInterface
         $user_json['message'] = htmlspecialchars($user_json['message'], ENT_QUOTES, "UTF-8");
         try {
             (new DBAccess())->getSQLExecution(
-                'INSERT INTO chat_table (id, user_id, comment) VALUES (NULL, :user_id, :user_comment)',
+                'INSERT INTO chat_table (id, user_id, comment, sled_id) VALUES (NULL, :user_id, :user_comment, :sled_id)',
                 [
                     ':user_id' => $user_json['id'],
-                    ':user_comment' => $user_json['message']
+                    ':user_comment' => $user_json['message'],
+                    ':sled_id' => $user_json['sled_id']
                 ]
             );
         } catch (PDOException $e) {
@@ -50,7 +51,7 @@ class Chat implements MessageComponentInterface
         }
 
         foreach ($this->clients as $client) {
-            if ($from !== $client) {
+            if ($from !== $client && $client->httpRequest->getRequestTarget() == "/?sled_id={$user_json['sled_id']}") {
                 // 送信者は受信者ではなく、接続されている各クライアントに送信します
                 $client->send(json_encode($user_json));
             }
@@ -61,6 +62,7 @@ class Chat implements MessageComponentInterface
     {
         // 接続が閉じられているので、メッセージを送信できなくなります
         $this->clients->detach($conn);
+        unset($this->users[$conn->resourceId]);
 
         echo "Connection {$conn->resourceId} has disconnected\n";
     }
@@ -70,5 +72,11 @@ class Chat implements MessageComponentInterface
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();
+    }
+
+    public function parse_url_param($string) {
+        $query = str_replace("/?", "", $string);
+        parse_str($query, $return_param);
+        return $return_param;
     }
 }
