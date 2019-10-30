@@ -6,6 +6,7 @@ if (isset($_SESSION["user_name"])) {
 } else {
     echo 'SessionがTimeoutしました。';
 }
+
 $_SESSION = array();
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
@@ -14,7 +15,7 @@ if (ini_get("session.use_cookies")) {
         $params["secure"], $params["httponly"]
     );
 }
-@session_destroy();
+session_destroy();
 
 $no_login_url = "../../index.php";
 header("Location: {$no_login_url}");
