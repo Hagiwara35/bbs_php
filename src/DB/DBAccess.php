@@ -27,10 +27,10 @@ class DBAccess
      * @param array $arrayDate
      * @return bool|PDOStatement
      */
-    public function getSQLExecution(string $sql, array $arrayDate)
+    public function getSQLExecution(string $sql, array $arrayData)
     {
         $sth = $this->dbh->prepare($sql);
-        $sth->execute($arrayDate);
+        $sth->execute($arrayData);
 
         return $sth;
     }
