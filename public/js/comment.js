@@ -1,34 +1,34 @@
 // websoketオープン
-var pas = "192.168.137.1";
+var pas = '192.168.137.1';
 
 var getquery = GetQueryString();
 
 var conn = new WebSocket('ws://' + pas + ':8080?sled_id=' + getquery['sled_num']);
 conn.onerror = function(){
-    alert("サーバに接続できませんでした...");
+    alert('サーバに接続できませんでした...');
     location.href = '../../index.php';
 }
 
 var user_json = {
-    "id": undefined,
-    "name": undefined,
-    "message": undefined,
-    "sled_id": getquery['sled_num']
+    'id': undefined,
+    'name': undefined,
+    'message': undefined,
+    'sled_id': getquery['sled_num']
 };  // ユーザーの基本情報
 var cookie_obj = new Object();
 
 conn.onopen = function (e) {
-    console.log("Connection established!");
+    console.log('Connection established!');
 
     //クッキー情報の読み込み
     var cookie = document.cookie.split(';');
     cookie.forEach(function (item) {
-        cookie_obj[item.split("=")[0].replace(/\s+/g, "")] = item.split("=")[1];
+        cookie_obj[item.split('=')[0].replace(/\s+/g, '')] = item.split('=')[1];
     });
 
-    user_json['id'] = cookie_obj['userid'];
-    user_json['name'] = cookie_obj['name'];
-    document.getElementById('name_print').innerHTML = 'ユーザーネーム：' + cookie_obj["name"];
+    user_json['id'] = cookie_obj['user_id'];
+    user_json['name'] = cookie_obj['user_name'];
+    document.getElementById('name_print').innerHTML = 'ユーザーネーム：' + user_json['name'];
 };
 
 //テキストエリアにて値が入力、Enterが押された時に発火するイベント
@@ -49,11 +49,11 @@ function sendMessage(e) {   //キーコードを取得
     conn.send(JSON.stringify(user_json));
 
     //初期化＋chat欄に書き込み
-    document.getElementById('chat').innerHTML += '<div class=\"user\">'
-        + '<span class=\"user_name\">' + user_json.name + '</span>'
+    document.getElementById('chat').innerHTML += '<div class=\'user\'>'
+        + '<span class=\'user_name\'>' + user_json.name + '</span>'
         + '<p>' + user_json.message + '</p>'
         + '</div>'
-        + '<div class=\"bms_clear\"></div>';
+        + '<div class=\'bms_clear\'></div>';
 
     document.getElementById('comment_area').value = '';
 
@@ -67,11 +67,11 @@ conn.onmessage = function (e) {
     e = JSON.parse(e.data);
 
     //初期化＋chat欄に書き込み
-    document.getElementById('chat').innerHTML += '<div class=\"client\">'
-        + '<span class=\"client_name\">' + e.name + '</span>'
+    document.getElementById('chat').innerHTML += '<div class=\'client\'>'
+        + '<span class=\'client_name\'>' + e.name + '</span>'
         + '<p>' + e.message + '</p>'
         + '</div>'
-        + '<div class=\"bms_clear\"></div>';
+        + '<div class=\'bms_clear\'></div>';
 
     ScrollWindow();
 };

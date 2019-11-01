@@ -1,5 +1,5 @@
 <?php
-require_once "vendor/autoload.php";
+require_once 'vendor/autoload.php';
 
 use src\DB\DBAccess;
 
@@ -20,10 +20,15 @@ if (isset($_POST['login'])) {
 
         if ($sth->rowCount() == 1) {
             $sth = $sth->fetch(PDO::FETCH_ASSOC);
-            setcookie('userid', $sth['id']);
-            setcookie('name', $_POST['user_name']);
-            $_SESSION["user_name"] = $_POST['user_name'];
-            $_SESSION["user_id"] = $sth['id'];
+
+            // js用
+            setcookie('user_id', $sth['id']);
+            setcookie('user_name', $_POST['user_name']);
+
+            // php用
+            $_SESSION['user_id'] = $sth['id'];
+            $_SESSION['user_name'] = $_POST['user_name'];
+
             $login_success_url = 'public/html/sled-list.php';
             header("Location: {$login_success_url}");
             exit;
@@ -33,7 +38,7 @@ if (isset($_POST['login'])) {
     } finally {
         $dbh = null;
         if(!$error_message){
-            $error_message = "<br>※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
+            $error_message = '<br>※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。';
         }
     }
 }
@@ -44,7 +49,6 @@ if (isset($_POST['login'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>ログイン画面</title>
 </head>
@@ -54,8 +58,8 @@ if (isset($_POST['login'])) {
     <div>
         <h1>
             <?php
-            if (isset($_SESSION["user_name"])) {
-                echo "{$_SESSION["user_name"]}でログイン中...";
+            if (isset($_SESSION['user_name'])) {
+                echo "{$_SESSION['user_name']}でログイン中...";
             }
             ?>
         </h1>
@@ -74,7 +78,7 @@ if (isset($_POST['login'])) {
 
     <div>
         <?php
-        if (isset($_SESSION["user_name"])) {
+        if (isset($_SESSION['user_name'])) {
             echo "<a href=\"public/html/logout.php\"><button>ログアウト</button></a>";
         }
 

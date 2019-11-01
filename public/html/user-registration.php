@@ -60,8 +60,8 @@ if (isset($_POST['user_create'])) {
 
 <div>
     <?php
-    if (isset($_SESSION["user_name"])) {
-        echo "<a href=\"public/html/logout.php\"><button>ログアウト</button></a>";
+    if (isset($_SESSION['user_name'])) {
+        echo '<a href=\'public/html/logout.php\'><button>ログアウト</button></a>';
     }
 
     if ($error_message) {
