@@ -56,6 +56,8 @@ function sendMessage(e) {   //キーコードを取得
         + '<div class=\"bms_clear\"></div>';
 
     document.getElementById('comment_area').value = '';
+
+    ScrollWindow();
 };
 
 //相手からメッセージが送られてきたときに発火するイベント
@@ -70,7 +72,14 @@ conn.onmessage = function (e) {
         + '<p>' + e.message + '</p>'
         + '</div>'
         + '<div class=\"bms_clear\"></div>';
+
+    ScrollWindow();
 };
+
+function ScrollWindow(){
+    var targetScroll = document.body.scrollHeight;
+    window.scrollTo(0, targetScroll);
+}
 
 function GetQueryString()
 {
