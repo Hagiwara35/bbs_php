@@ -42,7 +42,7 @@ if (!isset($_SESSION["user_name"])) {
         <tr>
             <td>{$item['id']}</td>
             <td>
-                <a href="chat.php?sled_num={$item['id']}">
+                <a href="sled-room.php?sled_num={$item['id']}">
                     {$item['sled_name']}
                 </a>
             </td>
