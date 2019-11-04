@@ -15,7 +15,7 @@ class DBAccess
 
     public function __construct()
     {
-        $dsn = 'mysql:dbname=chat;host=127.0.0.1';
+        $dsn = 'mysql:dbname=chat;host=127.0.0.1;charset=utf8;';
         $user = 'user';
         $password = 'user';
 

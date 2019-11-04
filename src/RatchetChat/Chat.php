@@ -62,7 +62,6 @@ class Chat implements MessageComponentInterface
     {
         // 接続が閉じられているので、メッセージを送信できなくなります
         $this->clients->detach($conn);
-        unset($this->users[$conn->resourceId]);
 
         echo "Connection {$conn->resourceId} has disconnected\n";
     }
@@ -72,11 +71,5 @@ class Chat implements MessageComponentInterface
         echo "An error has occurred: {$e->getMessage()}\n";
 
         $conn->close();
-    }
-
-    public function parse_url_param($string) {
-        $query = str_replace("/?", "", $string);
-        parse_str($query, $return_param);
-        return $return_param;
     }
 }
