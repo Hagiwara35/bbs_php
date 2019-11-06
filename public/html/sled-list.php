@@ -20,7 +20,9 @@ if (!isset($_SESSION['user_name'])) {
 </head>
 <body>
 <h1>スレッド一覧画面</h1>
-<a href="sled-create.php"><button>スレッドを作成する</button></a>
+<a href="sled-create.php">
+    <button>スレッドを作成する</button>
+</a>
 
 <table border="1" cellspacing="0" cellpadding="5">
     <tr>

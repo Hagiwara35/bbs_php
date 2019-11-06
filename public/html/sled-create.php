@@ -30,7 +30,7 @@ if (isset($_POST['sled_create'])) {
         $error_message = 'Error:DB接続エラー';
     } finally {
         $dbh = null;
-        if(!$error_message){
+        if (!$error_message) {
             $error_message = "<br>※ID、もしくはパスワードが間違っています。<br>　もう一度入力して下さい。";
         }
     }
@@ -44,14 +44,14 @@ if (isset($_POST['sled_create'])) {
     <title>スレッド作成画面</title>
 </head>
 <body>
-    <h1>スレッド作成画面</h1>
+<h1>スレッド作成画面</h1>
 
-    <form action="sled-create.php" method="POST">
-        <p>スレッド名：<input type="text" name="sled_name"></p>
-        <input type="submit" value="スレッドを作成" name="sled_create">
-    </form>
-    <?php
-    echo $error_message;
-    ?>
+<form action="sled-create.php" method="POST">
+    <p>スレッド名：<input type="text" name="sled_name"></p>
+    <input type="submit" value="スレッドを作成" name="sled_create">
+</form>
+<?php
+echo $error_message;
+?>
 </body>
 </html>

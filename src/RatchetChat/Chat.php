@@ -55,7 +55,7 @@ class Chat implements MessageComponentInterface
                         $client->send(json_encode($user_json));
                     }
                 }
-            }else{
+            } else {
                 echo "Fraud Connection\n";
             }
         } catch (PDOException $e) {
