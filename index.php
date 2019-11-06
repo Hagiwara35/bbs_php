@@ -23,11 +23,11 @@ if (isset($_POST['login'])) {
 
             // js用
             setcookie('user_id', $sth['id']);
-            setcookie('user_name', $_POST['user_name']);
+            setcookie('user_name', $sth['nickname']);
 
             // php用
             $_SESSION['user_id'] = $sth['id'];
-            $_SESSION['user_name'] = $_POST['user_name'];
+            $_SESSION['user_name'] = $sth['nickname'];
 
             $login_success_url = 'public/html/sled-list.php';
             header("Location: {$login_success_url}");

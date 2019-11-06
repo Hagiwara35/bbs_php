@@ -58,13 +58,13 @@ if ($sth->rowCount() == 1) {
     foreach ($sth as $item) {
         if ($item['user_id'] == $_SESSION['user_id']) {
             echo '<div class="user">'
-                . '<span class="user_name">' . $item['user_name'] . '</span>'
+                . '<span class="user_name">' . $item['nickname'] . '</span>'
                 . '<p>' . $item['comment'] . '</p>'
                 . '</div>'
                 . '<div class="bms_clear"></div>';
         } else {
             echo '<div class="client">'
-                . '<span class="client_name">' . $item['user_name'] . '</span>'
+                . '<span class="client_name">' . $item['nickname'] . '</span>'
                 . '<p>' . $item['comment'] . '</p>'
                 . '</div>'
                 . '<div class="bms_clear"></div>';

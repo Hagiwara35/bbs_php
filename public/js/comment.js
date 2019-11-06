@@ -27,7 +27,7 @@ conn.onopen = function (e) {
     });
 
     user_json['id'] = cookie_obj['user_id'];
-    user_json['name'] = cookie_obj['user_name'];
+    user_json['name'] = decodeURIComponent(cookie_obj['user_name']);
     document.getElementById('name_print').innerHTML = 'ユーザーネーム：' + user_json['name'];
 };
 
