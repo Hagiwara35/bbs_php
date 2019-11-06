@@ -3,7 +3,7 @@ var pas = '192.168.137.1';
 
 var getquery = GetQueryString();
 
-var conn = new WebSocket('ws://' + pas + ':8080?sled_id=' + getquery['sled_num']);
+var conn = new WebSocket('ws://' + pas + ':8080?sled_id=' + getquery['sled_id']);
 conn.onerror = function(){
     alert('サーバに接続できませんでした...');
     location.href = '../../index.php';
@@ -13,7 +13,7 @@ var user_json = {
     'id': undefined,
     'name': undefined,
     'message': undefined,
-    'sled_id': getquery['sled_num']
+    'sled_id': getquery['sled_id']
 };  // ユーザーの基本情報
 var cookie_obj = new Object();
 

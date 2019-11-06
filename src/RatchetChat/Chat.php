@@ -35,7 +35,7 @@ class Chat implements MessageComponentInterface
             $sth = $dbh->getSQLExecution(
                 'select * from user where id = :user_id',
                 [
-                        ':user_id' => $user_json['id'],
+                    ':user_id' => $user_json['id'],
                 ]
             );
 
