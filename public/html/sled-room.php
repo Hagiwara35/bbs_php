@@ -5,8 +5,8 @@ use src\DB\DBAccess;
 
 session_start();
 
-if (!isset($_SESSION["user_name"])) {
-    $no_login_url = "../../";
+if (!isset($_SESSION['user_name'])) {
+    $no_login_url = '../../';
     header("Location: {$no_login_url}");
     exit;
 }
@@ -27,7 +27,7 @@ $dbh = new DBAccess();
 $sth = $dbh->getSQLExecution(
     'select * from sled_table where id = :sled_id',
     [
-        ':sled_id' => $_GET['sled_num']
+        ':sled_id' => $_GET['sled_id']
     ]
 );
 if ($sth->rowCount() == 1) {
@@ -44,27 +44,27 @@ if ($sth->rowCount() == 1) {
 <div id="chat">
     <?php
     $sth = $dbh->getSQLExecution(
-        'select * 
-                from chat_table, user, sled_table 
-                where chat_table.user_id = user.id 
-                and chat_table.sled_id = sled_table.id 
-                and sled_table.id = :sled_id 
-                order by chat_table.id ASC',
+        'select *
+        from chat_table, user, sled_table
+        where chat_table.user_id = user.id
+        and chat_table.sled_id = sled_table.id
+        and sled_table.id = :sled_id
+        order by chat_table.id ASC',
         [
-                ':sled_id' => $_GET['sled_num']
+            ':sled_id' => $_GET['sled_id']
         ]
     );
 
     foreach ($sth as $item) {
-        if ($item['user_id'] == $_COOKIE['userid']) {
+        if ($item['user_id'] == $_SESSION['user_id']) {
             echo '<div class="user">'
-                . '<span class="user_name">' . $item['user_name'] . '</span>'
+                . '<span class="user_name">' . $item['nickname'] . '</span>'
                 . '<p>' . $item['comment'] . '</p>'
                 . '</div>'
                 . '<div class="bms_clear"></div>';
         } else {
             echo '<div class="client">'
-                . '<span class="client_name">' . $item['user_name'] . '</span>'
+                . '<span class="client_name">' . $item['nickname'] . '</span>'
                 . '<p>' . $item['comment'] . '</p>'
                 . '</div>'
                 . '<div class="bms_clear"></div>';

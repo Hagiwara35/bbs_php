@@ -19,12 +19,19 @@ if (isset($_POST['user_create'])) {
         );
 
         if ($sth->rowCount() == 0) {
+            if ($_POST['nickname'] === '') {
+                $nickname = $_POST['user_name'];
+            } else {
+                $nickname = $_POST['nickname'];
+            }
+
             $dbh->getSQLExecution(
-                    'INSERT INTO user (id, user_name, password) VALUES (NULL, :user_name, :password)',
-                    [
-                            ':user_name' => $_POST['user_name'],
-                            ':password' => hash('ripemd160', $_POST['plain_password'])
-                    ]
+                'INSERT INTO user (id, user_name, password, nickname) VALUES (NULL, :user_name, :password, :nickname)',
+                [
+                    ':user_name' => $_POST['user_name'],
+                    ':password' => hash('ripemd160', $_POST['plain_password']),
+                    ':nickname' => $nickname
+                ]
             );
 
             $login_success_url = '../../index.php';
@@ -51,17 +58,19 @@ if (isset($_POST['user_create'])) {
 <h1>ユーザ作成画面</h1>
 <form action="user-registration.php" method="POST">
     <p>
-        ユーザ名：<input type="text" name="user_name">
-        <?php ?>
+        ユーザ名：<input type="text" name="user_name" required="required">
     </p>
-    <p>パスワード：<input type="text" name="plain_password"></p>
+    <p>
+        ニックネーム：<input type="text" name="nickname">
+    </p>
+    <p>パスワード：<input type="password" name="plain_password" required="required"></p>
     <input type="submit" name="user_create" value="作成">
 </form>
 
 <div>
     <?php
-    if (isset($_SESSION["user_name"])) {
-        echo "<a href=\"public/html/logout.php\"><button>ログアウト</button></a>";
+    if (isset($_SESSION['user_name'])) {
+        echo '<a href=\'public/html/logout.php\'><button>ログアウト</button></a>';
     }
 
     if ($error_message) {

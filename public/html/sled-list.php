@@ -1,12 +1,12 @@
 <?php
-require_once "../../vendor/autoload.php";
+require_once '../../vendor/autoload.php';
 
 use src\DB\DBAccess;
 
 session_start();
 
-if (!isset($_SESSION["user_name"])) {
-    $no_login_url = "../../";
+if (!isset($_SESSION['user_name'])) {
+    $no_login_url = '../../';
     header("Location: {$no_login_url}");
     exit;
 }
@@ -16,13 +16,13 @@ if (!isset($_SESSION["user_name"])) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>login_test</title>
 </head>
 <body>
 <h1>スレッド一覧画面</h1>
-<a href="sled-create.php"><button>スレッドを作成する</button></a>
+<a href="sled-create.php">
+    <button>スレッドを作成する</button>
+</a>
 
 <table border="1" cellspacing="0" cellpadding="5">
     <tr>
@@ -33,7 +33,9 @@ if (!isset($_SESSION["user_name"])) {
     </tr>
     <?php
     $sth = (new DBAccess())->getSQLExecution(
-        'SELECT sled_table.id, sled_table.sled_name, sled_table.create_at, user.user_name FROM sled_table, user WHERE user.id = sled_table.create_user_id',
+        'SELECT sled_table.id, sled_table.sled_name, sled_table.create_at, user.user_name
+        FROM sled_table, user
+        WHERE user.id = sled_table.create_user_id',
         []
     );
 
@@ -42,7 +44,7 @@ if (!isset($_SESSION["user_name"])) {
         <tr>
             <td>{$item['id']}</td>
             <td>
-                <a href="chat.php?sled_num={$item['id']}">
+                <a href="sled-room.php?sled_id={$item['id']}">
                     {$item['sled_name']}
                 </a>
             </td>
