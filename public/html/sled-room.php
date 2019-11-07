@@ -27,7 +27,7 @@ $dbh = new DBAccess();
 $sth = $dbh->getSQLExecution(
     'select * from sled_table where id = :sled_id',
     [
-        ':sled_id' => $_GET['sled_num']
+        ':sled_id' => $_GET['sled_id']
     ]
 );
 if ($sth->rowCount() == 1) {
@@ -51,7 +51,7 @@ if ($sth->rowCount() == 1) {
         and sled_table.id = :sled_id
         order by chat_table.id ASC',
         [
-                ':sled_id' => $_GET['sled_num']
+            ':sled_id' => $_GET['sled_id']
         ]
     );
 

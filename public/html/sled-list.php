@@ -20,7 +20,9 @@ if (!isset($_SESSION['user_name'])) {
 </head>
 <body>
 <h1>スレッド一覧画面</h1>
-<a href="sled-create.php"><button>スレッドを作成する</button></a>
+<a href="sled-create.php">
+    <button>スレッドを作成する</button>
+</a>
 
 <table border="1" cellspacing="0" cellpadding="5">
     <tr>
@@ -31,7 +33,9 @@ if (!isset($_SESSION['user_name'])) {
     </tr>
     <?php
     $sth = (new DBAccess())->getSQLExecution(
-        'SELECT sled_table.id, sled_table.sled_name, sled_table.create_at, user.user_name FROM sled_table, user WHERE user.id = sled_table.create_user_id',
+        'SELECT sled_table.id, sled_table.sled_name, sled_table.create_at, user.user_name
+        FROM sled_table, user
+        WHERE user.id = sled_table.create_user_id',
         []
     );
 
@@ -40,7 +44,7 @@ if (!isset($_SESSION['user_name'])) {
         <tr>
             <td>{$item['id']}</td>
             <td>
-                <a href="sled-room.php?sled_num={$item['id']}">
+                <a href="sled-room.php?sled_id={$item['id']}">
                     {$item['sled_name']}
                 </a>
             </td>
