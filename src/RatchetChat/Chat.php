@@ -35,7 +35,7 @@ class Chat implements MessageComponentInterface
             $sth = $dbh->getSQLExecution(
                 'select * from user where id = :user_id',
                 [
-                        ':user_id' => $user_json['id'],
+                    ':user_id' => $user_json['id'],
                 ]
             );
 
@@ -55,7 +55,7 @@ class Chat implements MessageComponentInterface
                         $client->send(json_encode($user_json));
                     }
                 }
-            }else{
+            } else {
                 echo "Fraud Connection\n";
             }
         } catch (PDOException $e) {

@@ -22,17 +22,17 @@ if (isset($_POST['user_create'])) {
             $nickname;
             if ($_POST['nickname'] === '') {
                 $nickname = $_POST['user_name'];
-            }else{
+            } else {
                 $nickname = $_POST['nickname'];
             }
 
             $dbh->getSQLExecution(
-                    'INSERT INTO user (id, user_name, password, nickname) VALUES (NULL, :user_name, :password, :nickname)',
-                    [
-                            ':user_name' => $_POST['user_name'],
-                            ':password' => hash('ripemd160', $_POST['plain_password']),
-                            ':nickname' => $nickname
-                    ]
+                'INSERT INTO user (id, user_name, password, nickname) VALUES (NULL, :user_name, :password, :nickname)',
+                [
+                    ':user_name' => $_POST['user_name'],
+                    ':password' => hash('ripemd160', $_POST['plain_password']),
+                    ':nickname' => $nickname
+                ]
             );
 
             $login_success_url = '../../index.php';

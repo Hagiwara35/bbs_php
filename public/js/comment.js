@@ -3,8 +3,8 @@ var pas = '192.168.137.1';
 
 var getquery = GetQueryString();
 
-var conn = new WebSocket('ws://' + pas + ':8080?sled_id=' + getquery['sled_num']);
-conn.onerror = function(){
+var conn = new WebSocket('ws://' + pas + ':8080?sled_id=' + getquery['sled_id']);
+conn.onerror = function () {
     alert('サーバに接続できませんでした...');
     location.href = '../../index.php';
 }
@@ -13,7 +13,7 @@ var user_json = {
     'id': undefined,
     'name': undefined,
     'message': undefined,
-    'sled_id': getquery['sled_num']
+    'sled_id': getquery['sled_id']
 };  // ユーザーの基本情報
 var cookie_obj = new Object();
 
@@ -76,32 +76,29 @@ conn.onmessage = function (e) {
     ScrollWindow();
 };
 
-function ScrollWindow(){
+function ScrollWindow() {
     var targetScroll = document.body.scrollHeight;
     window.scrollTo(0, targetScroll);
 }
 
-function GetQueryString()
-{
+function GetQueryString() {
     var result = {};
-    if( 1 < window.location.search.length )
-    {
+    if (1 < window.location.search.length) {
         // 最初の1文字 (?記号) を除いた文字列を取得する
-        var query = window.location.search.substring( 1 );
+        var query = window.location.search.substring(1);
 
         // クエリの区切り記号 (&) で文字列を配列に分割する
-        var parameters = query.split( '&' );
+        var parameters = query.split('&');
 
-        for( var i = 0; i < parameters.length; i++ )
-        {
+        for (var i = 0; i < parameters.length; i++) {
             // パラメータ名とパラメータ値に分割する
-            var element = parameters[ i ].split( '=' );
+            var element = parameters[i].split('=');
 
-            var paramName = decodeURIComponent( element[ 0 ] );
-            var paramValue = decodeURIComponent( element[ 1 ] );
+            var paramName = decodeURIComponent(element[0]);
+            var paramValue = decodeURIComponent(element[1]);
 
             // パラメータ名をキーとして連想配列に追加する
-            result[ paramName ] = paramValue;
+            result[paramName] = paramValue;
         }
     }
     return result;
