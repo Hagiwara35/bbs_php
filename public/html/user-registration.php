@@ -18,7 +18,8 @@ if (isset($_POST['user_create'])) {
             ]
         );
 
-        if ($sth->rowCount() == 0) {
+        if ($sth->rowCount() == 0 && preg_match('/^[0-9A-Za-z]+$/', $_POST['user_name'])) {
+            $nickname;
             if ($_POST['nickname'] === '') {
                 $nickname = $_POST['user_name'];
             } else {
@@ -43,7 +44,11 @@ if (isset($_POST['user_create'])) {
     } finally {
         $dbh = null;
         if (!$error_message) {
-            $error_message = "<br>※既にこのユーザ名は使われています。";
+            if($sth->rowCount() != 0){
+                $error_message = "<br>※既にこのユーザ名は使われています。";
+            }else{
+                $error_message = "<br>※ユーザ名　パスワードは半角英数字のみ登録できます。";
+            }
         }
     }
 }
@@ -58,12 +63,12 @@ if (isset($_POST['user_create'])) {
 <h1>ユーザ作成画面</h1>
 <form action="user-registration.php" method="POST">
     <p>
-        ユーザ名：<input type="text" name="user_name" required="required">
+        ユーザ名：<input type="text" name="user_name"  required="required">
     </p>
     <p>
         ニックネーム：<input type="text" name="nickname">
     </p>
-    <p>パスワード：<input type="password" name="plain_password" required="required"></p>
+    <p>パスワード：<input type="password" name="plain_password" pattern="^[0-9A-Za-z]+$" required="required"></p>
     <input type="submit" name="user_create" value="作成">
 </form>
 
