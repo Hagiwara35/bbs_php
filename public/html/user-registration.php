@@ -27,8 +27,9 @@ if (isset($_POST['user_create'])) {
             }
 
             $dbh->getSQLExecution(
-                'INSERT INTO user (id, user_name, password, nickname) VALUES (NULL, :user_name, :password, :nickname)',
+                'INSERT INTO user (id, user_name, password, nickname) VALUES (:id, :user_name, :password, :nickname)',
                 [
+                    ':id' => uniqid('', true),
                     ':user_name' => $_POST['user_name'],
                     ':password' => hash('ripemd160', $_POST['plain_password']),
                     ':nickname' => $nickname
