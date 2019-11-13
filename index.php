@@ -50,43 +50,39 @@ if (isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/css/index.css">
     <title>ログイン画面</title>
 </head>
 
 <body>
-    <h1>ログイン画面</h1>
-    <div>
-        <h1>
-            <?php
-            if (isset($_SESSION['user_name'])) {
-                echo "{$_SESSION['user_name']}でログイン中...";
-            }
-            ?>
-        </h1>
-    </div>
+    <article>
+        <h1 class="font-position title">CT チャット</h1>
 
-    <div>
-        <form action="index.php" method="POST">
-            <p>ユーザ名：<input type="text" name="user_name"></p>
-            <p>パスワード：<input type="password" name="password"></p>
-            <input type="submit" name="login" value="ログイン" style="float: left; margin: 0 10px 0 0">
-        </form>
-        <a href="public/html/user-registration.php">
-            <button>ユーザを新規作成</button>
-        </a>
-    </div>
+        <section>
+            <form id="login" action="index.php" method="POST">
+                <h2 class="font-position login-title">ログイン</h2>
 
-    <div>
-        <?php
-        if (isset($_SESSION['user_name'])) {
-            echo "<a href=\"public/html/logout.php\"><button>ログアウト</button></a>";
-        }
+                <div class="text-card">
+                    <input class="text-card-box" type="text" name="user_name">
+                    <p class="font-position">ユーザ名</p>
+                </div>
 
-        if ($error_message) {
-            echo $error_message;
-        }
-        ?>
-    </div>
+                <div class="text-card">
+                    <input class="text-card-box" type="password" name="password">
+                    <p class="font-position">パスワード</p>
+                </div>
+
+                <button class="button" name="login">ログイン</button>
+                <a class="button" href="public/html/user-registration.php">
+                    <p>アカウント作成</p>
+                </a>
+
+                <p class="error-text">
+                    <?php echo $error_message; ?>
+                </p>
+            </form>
+        </section>
+    </article>
 </body>
 
 </html>
