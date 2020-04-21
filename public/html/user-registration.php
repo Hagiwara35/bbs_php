@@ -58,31 +58,42 @@ if (isset($_POST['user_create'])) {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/index.css">
     <title>ユーザ作成画面</title>
 </head>
 <body>
-<h1>ユーザ作成画面</h1>
-<form action="user-registration.php" method="POST">
-    <p>
-        ユーザ名：<input type="text" name="user_name"  required="required">
-    </p>
-    <p>
-        ニックネーム：<input type="text" name="nickname">
-    </p>
-    <p>パスワード：<input type="password" name="plain_password" pattern="^[0-9A-Za-z]+$" required="required"></p>
-    <input type="submit" name="user_create" value="作成">
-</form>
+<article>
+        <h1 class="font-position title">CT チャット</h1>
 
-<div>
-    <?php
-    if (isset($_SESSION['user_name'])) {
-        echo '<a href=\'public/html/logout.php\'><button>ログアウト</button></a>';
-    }
+        <section>
+            <form id="login" action="user-registration.php" method="POST">
+                <h2 class="font-position login-title">ユーザ作成画面</h2>
 
-    if ($error_message) {
-        echo $error_message;
-    }
-    ?>
-</div>
+                <div class="text-card">
+                    <input class="text-card-box" type="text" name="user_name" required="required">
+                    <p class="font-position">ユーザ名：</p>
+                </div>
+
+                <div class="text-card">
+                    <input class="text-card-box" type="text" name="nickname">
+                    <p class="font-position">ニックネーム：</p>
+                </div>
+
+                <div class="text-card">
+                    <input class="text-card-box" type="password" name="plain_password" required="required">
+                    <p class="font-position">パスワード：</p>
+                </div>
+
+                <button class="button" name="user_create">作成</button>
+                <a class="button" href="../../">
+                    <p>戻る</p>
+                </a>
+
+                <p class="error-text">
+                    <?php echo $error_message; ?>
+                </p>
+            </form>
+        </section>
+    </article>
 </body>
 </html>
